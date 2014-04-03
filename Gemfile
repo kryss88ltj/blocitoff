@@ -6,6 +6,7 @@ gem 'rails', '4.0.4'
 # Use sqlite3 as the database for Active Record
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
 
 group :development do
@@ -27,6 +28,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+gem 'bootstrap-sass', '~> 3.1.1'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
@@ -39,6 +42,8 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
+gem 'heroku'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
