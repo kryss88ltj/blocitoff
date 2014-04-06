@@ -1,7 +1,20 @@
-      <% @tasks.each do |task| %>
-        
-          <%= task.title %></br>
-          <%= task.description %></br>
-          <%= task.complete %></br>
-        
-    <% end %>
+
+<strong><%= "All #{current_user}'s Tasks" %></strong>
+
+<table>
+  <tr>
+    <td>Task</td>
+    <td>Days Left</td>
+    <td>Completed?</td>
+  </tr>
+
+  <% @tasks.each do |task| %>
+    <tr> 
+      <td><%= link_to "Delete", task_path(task), method: :delete, class: 'btn btn-danger'%></td>
+      <td><%= task.title %></td>
+      <% daysLeft = 7 - ((Time.now - task.created_at).to_i / 1.day) %>
+      <td><%= "#{daysLeft}" %></td> 
+      <td><%= check_box_tag("completed", value = "1", checked = false)%></td> 
+    </tr>
+  <% end %>
+</table> 

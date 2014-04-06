@@ -12,6 +12,7 @@ class ListsController < ApplicationController
 
   def new
     @list = List.new 
+    @task = Task.new
   end
 
   def create
@@ -40,6 +41,22 @@ class ListsController < ApplicationController
       render :edit
     end
   end
+
+ # def destroy
+ #    @list = List.find(params[:topic_id])
+ #    @task = Task.find(params[:id])
+
+
+ #    title = @task.title
+ #    if @task.destroy
+ #      flash[:notice] = "\"#{title}\" was deleted successfully."
+ #      redirect_to @list
+ #    else
+ #      flash[:error] = "There was an error deleting the task."
+ #      render :show
+ #    end
+ #  end
+
 
 
   private

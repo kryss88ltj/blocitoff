@@ -18,7 +18,6 @@ class TasksController < ApplicationController
     @task.list = @list
 
     if @task.save
-      flash[:notice] = "Task was saved successfully."
       redirect_to @list
     else
       flash[:error] = "Error creating task. Please try again."
@@ -26,7 +25,20 @@ class TasksController < ApplicationController
     end
   end 
 
+  def destroy
+    @list = List.find(params[:list_id])
+    @task = Task.find(params[:id])
 
+
+    title = @task.title
+    if @task.destroy
+      flash[:notice] = "\"#{title}\" was deleted successfully."
+      redirect_to @list
+    else
+      flash[:error] = "There was an error deleting the task."
+      render :show
+    end
+  end
 
 
 

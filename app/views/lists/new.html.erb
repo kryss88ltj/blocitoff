@@ -1,2 +1,9 @@
-<h1>Lists#new</h1>
-<p>Find me in app/views/lists/new.html.erb</p>
+<h1>Create a New List</h1>
+
+
+<%= form_for [@list] do |f| %>
+  <div class="form-group">
+    <%= f.text_field :title, class: 'form-control', placeholder: "Enter name of list" %>
+  </div>
+  <%= f.submit "Create New List", class: 'btn btn-success' %>
+<% end %>
