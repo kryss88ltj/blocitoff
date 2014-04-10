@@ -1,24 +1,20 @@
-class TasksController < ApplicationController
-  def index
-    if current_user 
-      @tasks = current_user.tasks
-    else  
-      @tasks = Task.all
-    end  
-  end
+class Lists::TasksController < ApplicationController
+  # def index
+  #   @tasks = Task.all
+  # end
 
   # def show
   #   @task = Task.find(params[:id])
   # end
 
-  # def new
-  #   @list = List.find(params[:list_id])
-  #   @task = Task.new 
-  # end 
+  def new
+    @task = Task.new 
+  end
 
   def create
     @list = List.find(params[:list_id])
-    @task = current_user.tasks.build(task_params)
+    @task = Task.new(task_params)
+    @list.tasks.build(task_params)
     @task.list = @list
 
     if @task.save
@@ -51,11 +47,10 @@ class TasksController < ApplicationController
 
 
   def update
-    @list = List.find(params[:list_id])
     @task = Task.find(params[:id])
 
     if @task.update_attributes(task_params)
-      redirect_to @list
+      redirect_to @task
     else
       flash[:error] = "Error saving task. Please try again."
       render :edit
@@ -68,7 +63,7 @@ class TasksController < ApplicationController
     params[:task_checkbox].each do |check|
     task_id = check
     t = Task.find_by_id(task_id)
-    t.update_attribute(:complete, true)
+         t.update_attribute(:complete, true)
      end
     redirect_to list_path(@list)
 

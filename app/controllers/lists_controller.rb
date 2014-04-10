@@ -1,12 +1,13 @@
 class ListsController < ApplicationController
   def index
-    @lists = List.all
+    @lists = current_user.lists
   end
 
   def show
-    @list = List.find(params[:id])
-    @tasks = @list.tasks
-    @task = Task.new
+      # @user = User.find_by_email("christine.stauffer@gmail.com")
+      @list = current_user.lists.find(params[:id])
+      @tasks = @list.tasks
+      @task = Task.new
   end 
 
   def new
@@ -15,7 +16,8 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = List.new(list_params)
+
+    @list = current_user.lists.build(list_params)
 
     if @list.save
       flash[:notice] = "List was saved successfully."

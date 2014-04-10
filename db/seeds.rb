@@ -23,6 +23,8 @@ end
   
 end
 
+
+
 puts Time.now
 puts "Seed finished"
 puts "#{List.count} lists created"

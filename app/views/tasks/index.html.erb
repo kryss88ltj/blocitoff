@@ -1,16 +1,18 @@
 
-<strong><%= "All #{current_user}'s Tasks" %></strong>
+<div class="title"><%= "All #{current_user.name}'s Tasks" %></div>
 
-<table>
+<table class="table table-condensed table-hover table-rounded">
   <tr>
+    <td>Delete</td>
     <td>Task</td>
     <td>Days Left</td>
     <td>Completed?</td>
   </tr>
 
+  
   <% @tasks.each do |task| %>
     <tr> 
-      <td><%= link_to "Delete", task_path(task), method: :delete, class: 'btn btn-xs btn-danger'%></td>
+      <td><%= link_to "", tasks_path(task), method: :delete, class: 'btn btn-xs glyphicon glyphicon-trash'%></td>
       <td><%= task.title %></td>
       <% daysLeft = 7 - ((Time.now - task.created_at).to_i / 1.day) %>
       <td><%= "#{daysLeft}" %></td> 

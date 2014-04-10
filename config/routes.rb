@@ -6,7 +6,7 @@ Blocitoff::Application.routes.draw do
     resources :tasks, except: [:index]
   end
 
-  resources :task, only: [:destroy]
+  # resources :task, only: [:destroy]
   get "/tasks/", to: 'tasks#index'
   post "/tasks/complete", to: "tasks#complete"
 
