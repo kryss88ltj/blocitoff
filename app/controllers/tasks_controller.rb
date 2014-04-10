@@ -65,11 +65,21 @@ class TasksController < ApplicationController
 
   def complete
     @list = List.find(params[:list_id])
-    params[:task_checkbox].each do |check|
-    task_id = check
-    t = Task.find_by_id(task_id)
-    t.update_attribute(:complete, true)
-     end
+
+    if params[:task_checked] != nil 
+      params[:task_checked].each do |check|
+        task_id = check
+        t = Task.find_by_id(task_id)
+        if t.complete == true
+          t.update_attribute(:complete, false)
+        else 
+          t.update_attribute(:complete, true)
+        end 
+      end
+
+    end
+
+
     redirect_to list_path(@list)
 
   end  
