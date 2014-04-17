@@ -1,27 +1,59 @@
 <strong><%= "this list's title is: #{@list.title}" %></strong>
 
-<table>
-  <tr>
-    <td>Task</td>
-    <td>Days Left</td>
-    <td>Completed?</td>
-  </tr>
-
-  <% @list.tasks.each do |task| %>
-    <tr> 
-      <td><%= link_to "Delete", [@list,task], method: :delete, class: 'btn btn-danger'%></td>
-      <td><%= task.title %></td>
-      <% daysLeft = 7 - ((Time.now - task.created_at).to_i / 1.day) %>
-      <td><%= "#{daysLeft}" %></td> 
-      <td><%= check_box_tag("completed", value = "1", checked = false)%></td> 
+<%= form_tag("/tasks/complete/", :method => "post") do %>
+  <table>
+    <tr>
+      <td>Delete</td>
+      <td>Task</td>
+      <td>Days Left</td>
+      <td>Completed?</td>
     </tr>
-  <% end %>
-</table> 
 
-<%= form_for [@list, @task] do |f| %>
-  <div class="form-group">
-    <%= f.text_field :title, class: 'form-control', placeholder: "Enter task to add" %>
-  </div>
-  <%= f.submit "Add", class: 'btn btn-success' %>
-<% end %>
+    <% @list.tasks.each do |task| %>
+      <% if task.complete == true %>
+        <tr> 
+          <td style="color:grey;"><%= link_to "Delete", [@list,task], method: :delete, class: 'btn btn-danger'%></td>
+          <td style="color:grey;"><strike><%= task.title %></strike></td>
+          <% daysLeft = 7 - ((Time.now - task.created_at).to_i / 1.day) %>
+          <td style="color:grey;"><%= "#{daysLeft}" %></td> 
+          <td><%= check_box_tag("task_checkbox[]", task.id, disable: true)%></td> 
+          <%= hidden_field_tag :list_id, @list.id %>
+        </tr>
+      <% else %> 
+        <tr> 
+          <td><%= link_to "Delete", [@list,task], method: :delete, class: 'btn btn-danger'%></td>
+          <td><%= task.title %></td>
+          <% daysLeft = 7 - ((Time.now - task.created_at).to_i / 1.day) %>
+          <td><%= "#{daysLeft}" %></td> 
+          <td><%= check_box_tag("task_checkbox[]", task.id)%></td> 
+        </tr>
+      <% end %> <!-- end if statement --> 
+    <% end %> <!-- end loop for @list.tasks -->
+  </table> 
 
+  <%= hidden_field_tag :list_id, @list.id %>  <!-- this is for sending @List to -->
+
+  <%= submit_tag("Mark Complete", :class=>"btn btn-success") %>
+
+<% end %>  <!-- end form for tasks --> 
+
+
+
+  <!-- Add new tasks --> 
+  <%= form_for [@list, @task] do |f| %>
+    <div class="form-group">
+      <%= f.text_field :title, class: 'form-control', placeholder: "Enter task to add" %>
+    </div>
+    <%= f.submit "Add", class: 'btn btn-success' %>
+  <% end %>  <!-- end form for new task --> 
+
+
+
+
+
+
+
+
+
+
+  

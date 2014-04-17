@@ -10,7 +10,7 @@
 
   <% @tasks.each do |task| %>
     <tr> 
-      <td><%= link_to "Delete", task_path(task), method: :delete, class: 'btn btn-danger'%></td>
+      <td><%= link_to "Delete", task_path(task), method: :delete, class: 'btn btn-xs btn-danger'%></td>
       <td><%= task.title %></td>
       <% daysLeft = 7 - ((Time.now - task.created_at).to_i / 1.day) %>
       <td><%= "#{daysLeft}" %></td> 

@@ -7,7 +7,6 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @tasks = @list.tasks
     @task = Task.new
-    #render layout: 'test'      this was for overring the application.html.erb
   end 
 
   def new
@@ -41,6 +40,8 @@ class ListsController < ApplicationController
       render :edit
     end
   end
+
+
 
  # def destroy
  #    @list = List.find(params[:topic_id])

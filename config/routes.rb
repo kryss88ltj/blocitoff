@@ -8,6 +8,7 @@ Blocitoff::Application.routes.draw do
 
   resources :task, only: [:destroy]
   get "/tasks/", to: 'tasks#index'
+  post "/tasks/complete", to: "tasks#complete"
 
   get "welcome/index"
   root to: 'welcome#index'
